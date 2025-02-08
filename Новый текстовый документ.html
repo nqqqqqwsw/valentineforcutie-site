@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            background-color: #FFC0CB;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        h1 {
+            color: red;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        .buttons {
+            margin-top: 30px;
+        }
+        .btn {
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .yes {
+            background-color: green;
+            color: white;
+        }
+        .no {
+            background-color: red;
+            color: white;
+        }
+        .message {
+            color: red;
+            font-size: 24px;
+            display: none;
+            margin-top: 30px;
+        }
+        #gifContainer, #imageContainer {
+            margin-top: 20px;
+            display: none;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        #finalImage {
+            max-width: 50%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="question">куте, будешь моим venom?))</h1>
+
+    <div class="buttons">
+        <button id="yesBtn" class="btn yes" onclick="yesClicked()">да</button>
+        <button id="noBtn" class="btn no" onclick="noClicked()">нет</button>
+    </div>
+
+    <div id="gifContainer">
+        <img id="gifImage" src="" alt="Валентинка">
+    </div>
+
+    <p id="message" class="message"></p>
+
+    <div id="imageContainer">
+        <img id="finalImage" src="" alt="Кукла">
+    </div>
+
+    <script>
+        let noClicks = 0;
+        let yesSize = 20; 
+        let yesClickedOnce = false;
+
+        function yesClicked() {
+            yesClickedOnce = true;
+            document.getElementById("message").innerHTML = "о, ты быстро согласился( <br> с 14 февраля, любовь моя! <br> но пройди ка до самого конца, я хоть похвастаюсь что сделал((";
+            document.getElementById("message").style.display = "block";
+            document.getElementById("gifImage").src = "валентинка.gif";
+            document.getElementById("gifContainer").style.display = "block";
+        }
+
+        function noClicked() {
+            if (yesClickedOnce) {
+                document.getElementById("message").style.display = "none";
+                document.getElementById("gifContainer").style.display = "none";
+            }
+
+            noClicks++;
+            let noBtn = document.getElementById("noBtn");
+            let yesBtn = document.getElementById("yesBtn");
+
+            yesSize += 10;
+            yesBtn.style.fontSize = yesSize + "px";
+            yesBtn.style.padding = (yesSize / 2) + "px";
+
+            let texts = [
+                "ты уверен в этом?", "точно уверен?",
+                "100%?", "подумай пожалуйста",
+                "ты не оставляешь мне выбора."
+            ];
+
+            if (noClicks < 6) {
+                noBtn.innerHTML = texts[noClicks - 1];
+            }
+
+            if (noClicks === 6) {
+                noBtn.style.display = "none";
+                yesBtn.style.fontSize = "50px";
+                yesBtn.style.width = "100vw";
+                yesBtn.style.height = "100vh";
+                yesBtn.style.position = "absolute";
+                yesBtn.style.top = "0";
+                yesBtn.style.left = "0";
+                yesBtn.onclick = finalMessage;
+            }
+        }
+
+        function finalMessage() {
+            document.getElementById("question").style.display = "none";
+            document.getElementById("message").innerHTML = "я знал что ты согласишься!)) <br> люблю тебя, дорогой мой";
+            document.getElementById("message").style.fontSize = "32px";
+            document.getElementById("message").style.display = "block";
+            document.getElementById("yesBtn").style.display = "none";
+            document.getElementById("gifContainer").style.display = "none";
+            document.getElementById("finalImage").src = "кукла.jpg";
+            document.getElementById("imageContainer").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
